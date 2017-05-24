@@ -1,0 +1,200 @@
+﻿<Window x:Class="Printer_Status.DetailWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Printer_Status"
+        mc:Ignorable="d"
+        Title="{Binding IpAddress, StringFormat='{}{0} - Printer Details'}" Height="400" Width="800">
+    <DockPanel>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem>
+                    <TextBlock Text="{Binding LastUpdated, StringFormat='Last updated: {0}'}" />
+            </StatusBarItem>
+            <StatusBarItem>
+                <Button x:Name="RefreshInfo" Content="Refresh" Click="RefreshInfo_Click"/>
+            </StatusBarItem>
+            <StatusBarItem>
+                <Button x:Name="MonitorButton" Content="Monitor" Click="MonitorButton_Click" />
+            </StatusBarItem>
+        </StatusBar>
+        <!--<TextBlock Text="{Binding name}"/>-->
+        <GroupBox x:Name="SystemInfo" Header="System" MaxWidth="175">
+            <StackPanel>
+                <Label Content="Console Text:" Target="{Binding ElementName=ConsoleTextBox}"/>
+                <TextBox x:Name="ConsoleTextBox" IsReadOnly="True" FontFamily="Consolas" Text="{Binding ConsoleText, Mode=OneTime}"/>
+                <Label Content="Description:" Target="{Binding ElementName=DescrBox}"/>
+                <TextBox x:Name="DescrBox" IsReadOnly="True" Text="{Binding Descr, Mode=OneWay}"/>
+                <Label Content="Uptime:" Target="{Binding ElementName=UptimeBox}"/>
+                <TextBox x:Name="UptimeBox" IsReadOnly="True" Text="{Binding Uptime, Mode=OneWay}" />
+                <Label Content="Contact:" Target="{Binding ElementName=ContactBox}"/>
+                <TextBox x:Name="ContactBox" Text="{Binding Contact}" />
+                <Label Content="Name:" Target="{Binding ElementName=NameBox}"/>
+                <TextBox x:Name="NameBox" Text="{Binding Name}" />
+                <Label Content="Location:" Target="{Binding ElementName=LocationBox}"/>
+                <TextBox x:Name="LocationBox" Text="{Binding Location}"/>
+                <Button x:Name="SystemInfoSave" Margin="0,10,0,0" Content="Save changes" Click="SystemInfoSave_Click"/>
+            </StackPanel>
+        </GroupBox>
+        <TabControl TabStripPlacement="Bottom">
+            <TabItem Header="Basic">
+                <WrapPanel>
+                    <GroupBox x:Name="BasicAlertsInfo" Header="Alerts">
+                        <ListView x:Name="BasicAlertsView" ItemsSource="{Binding Alerts}">
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="ToolTip" Value="{Binding Value}" />
+                                </Style>
+                            </ListView.ItemContainerStyle>
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Severity" DisplayMemberBinding="{Binding Value.SeverityLevel}" />
+                                    <GridViewColumn Header="Training" DisplayMemberBinding="{Binding Value.TrainingLevel}" />
+                                    <GridViewColumn Header="Group" DisplayMemberBinding="{Binding Value.Group}" />
+                                    <GridViewColumn Header="Code" DisplayMemberBinding="{Binding Value.Code}" />
+                                    <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Value.Description}" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </GroupBox>
+                    <GroupBox x:Name="BasicSuppliesInfo" Header="Supplies">
+                        <ListView x:Name="BasicSuppliesView" ItemsSource="{Binding Supplies}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Type" DisplayMemberBinding="{Binding Value.SupplyType}" />
+                                    <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Value.Description}" />
+                                    <GridViewColumn Header="Level" DisplayMemberBinding="{Binding Value.Percent}" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </GroupBox>
+                    <GroupBox x:Name="BasicInputsInfo" Header="Inputs">
+                        <ListView x:Name="BasicInputsView" ItemsSource="{Binding Inputs}">
+                            <ListView.View>
+                                <GridView>
+                                    <!--<GridViewColumn Header="Type" DisplayMemberBinding="{Binding Value.SupplyType}" />-->
+                                    <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Value.Description}" />
+                                    <GridViewColumn Header="Level" DisplayMemberBinding="{Binding Value.Percent}" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </GroupBox>
+
+                    <GroupBox x:Name="BasicOutputsInfo" Header="Outputs">
+                        <ListView x:Name="BasicOutputsView" ItemsSource="{Binding Outputs}">
+                            <ListView.View>
+                                <GridView>
+                                    <!--<GridViewColumn Header="Type" DisplayMemberBinding="{Binding Value.SupplyType}" />-->
+                                    <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Value.Description}" />
+                                    <GridViewColumn Header="Level" DisplayMemberBinding="{Binding Value.Percent}" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </GroupBox>
+                    <GroupBox x:Name="BasicLightsInfo" Header="Lights">
+                        <ListView x:Name="BasicLightsView" ItemsSource="{Binding ConsoleLights}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Value.Description}" />
+                                    <GridViewColumn Header="Light">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <local:Light Color="{Binding Value.RealColor}" OnTime="{Binding Value.OnTime}" OffTime="{Binding Value.OffTime}" Height="10" Width="10"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </GroupBox>
+                </WrapPanel>
+            </TabItem>
+            <TabItem Header="Advanced">
+                <WrapPanel>
+                    <GroupBox x:Name="AlertsInfo" Header="Alerts">
+                        <ListView x:Name="AlertsView" ItemsSource="{Binding Alerts}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Index" DisplayMemberBinding="{Binding Key}" />
+                                    <GridViewColumn Header="Severity" DisplayMemberBinding="{Binding Value.SeverityLevel}" />
+                                    <GridViewColumn Header="Training" DisplayMemberBinding="{Binding Value.TrainingLevel}" />
+                                    <GridViewColumn Header="Group" DisplayMemberBinding="{Binding Value.Group}" />
+                                    <GridViewColumn Header="Group Index" DisplayMemberBinding="{Binding Value.GroupIndex}" />
+                                    <GridViewColumn Header="Code" DisplayMemberBinding="{Binding Value.Code}" />
+                                    <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Value.Description}" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </GroupBox>
+                    <GroupBox x:Name="SuppliesInfo" Header="Supplies">
+                        <ListView x:Name="SuppliesView" ItemsSource="{Binding Supplies}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Index" DisplayMemberBinding="{Binding Key}" />
+                                    <GridViewColumn Header="Type" DisplayMemberBinding="{Binding Value.SupplyType}" />
+                                    <GridViewColumn Header="Class" DisplayMemberBinding="{Binding Value.SupplyClass}" />
+                                    <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Value.Description}" />
+                                    <GridViewColumn Header="Level" DisplayMemberBinding="{Binding Value.Level}" />
+                                    <GridViewColumn Header="Max Capacity" DisplayMemberBinding="{Binding Value.MaxCapacity}" />
+                                    <GridViewColumn Header="Supply Unit" DisplayMemberBinding="{Binding Value.SupplyUnit}" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </GroupBox>
+                    <GroupBox x:Name="CoversInfo" Header="Covers">
+                        <ListView x:Name="CoversView" ItemsSource="{Binding Covers}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Index" DisplayMemberBinding="{Binding Key}" />
+                                    <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Value.Description}" />
+                                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Value.Status}" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </GroupBox>
+                    <GroupBox x:Name="InputsInfo" Header="Inputs">
+                        <ListView x:Name="InputsView" ItemsSource="{Binding Inputs}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Index" DisplayMemberBinding="{Binding Key}" />
+                                    <GridViewColumn Header="Type" DisplayMemberBinding="{Binding Value.InputType}" />
+                                    <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Value.Description}" />
+                                    <GridViewColumn Header="Level" DisplayMemberBinding="{Binding Value.CurrentLevel}" />
+                                    <GridViewColumn Header="Max Capacity" DisplayMemberBinding="{Binding Value.MaxCapacity}" />
+                                    <GridViewColumn Header="Capacity Unit" DisplayMemberBinding="{Binding Value.CapacityUnit}" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </GroupBox>
+                    <GroupBox x:Name="OutputsInfo" Header="Outputs">
+                        <ListView x:Name="OutputsView" ItemsSource="{Binding Outputs}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Index" DisplayMemberBinding="{Binding Key}" />
+                                    <GridViewColumn Header="Type" DisplayMemberBinding="{Binding Value.InputType}" />
+                                    <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Value.Description}" />
+                                    <GridViewColumn Header="Remaining Capacity" DisplayMemberBinding="{Binding Value.RemainingCapacity}" />
+                                    <GridViewColumn Header="Max Capacity" DisplayMemberBinding="{Binding Value.MaxCapacity}" />
+                                    <GridViewColumn Header="Capacity Unit" DisplayMemberBinding="{Binding Value.CapacityUnit}" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </GroupBox>
+                    <GroupBox x:Name="LightsInfo" Header="Lights">
+                        <ListView x:Name="LightsView" ItemsSource="{Binding ConsoleLights}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Index" DisplayMemberBinding="{Binding Key}" />
+                                    <GridViewColumn Header="On Time" DisplayMemberBinding="{Binding Value.OnTime}" />
+                                    <GridViewColumn Header="Off Time" DisplayMemberBinding="{Binding Value.OffTime}" />
+                                    <GridViewColumn Header="Color" DisplayMemberBinding="{Binding Value.ConsoleColor}" />
+                                    <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Value.Description}" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </GroupBox>
+                </WrapPanel>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</Window>

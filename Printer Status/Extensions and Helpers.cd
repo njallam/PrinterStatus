@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Printer_Status.Extensions">
+    <Position X="0.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAABIBgAAAAAAAA=</HashCode>
+      <FileName>Extensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Printer_Status.Helpers.DatabaseHelper">
+    <Position X="3" Y="4" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Helpers\DatabaseHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Printer_Status.Helpers.Oids">
+    <Position X="0.5" Y="2.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAACAQABAIAAgQYQAIgAgAAAEAgIQAAACBQIAAAgAAw=</HashCode>
+      <FileName>Helpers\Oids.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Printer_Status.Helpers.SnmpHelper">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Helpers\SnmpHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Printer_Status.Helpers.ValueHelper">
+    <Position X="3" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUAAAAAgAA=</HashCode>
+      <FileName>Helpers\ValueHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Printer_Status.Helpers.WindowHelper">
+    <Position X="3" Y="5.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Helpers\WindowHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

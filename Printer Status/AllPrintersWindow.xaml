@@ -1,0 +1,21 @@
+﻿<Window x:Class="Printer_Status.AllPrintersWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Printer_Status"
+        mc:Ignorable="d"
+        Title="All Printers" Height="300" Width="300">
+    <Grid>
+        <ListView x:Name="AllPrintersView" MouseDoubleClick="AllPrintersView_OnMouseDoubleClick">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Value.Item1}" />
+                    <GridViewColumn Header="Location" DisplayMemberBinding="{Binding Value.Item2}" />
+                    <GridViewColumn Header="IP Address" DisplayMemberBinding="{Binding Key}" />
+                    <GridViewColumn Header="Last Seen" DisplayMemberBinding="{Binding Value.Item3}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>
